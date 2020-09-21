@@ -1,2 +1,2 @@
 all:
-	docker build . --build-arg DOCKER_ARCH=`docker version -f "{{.Server.Arch}}"` -t juampe/filer
+	docker build . --build-arg TARGETARCH=`docker version -f "{{.Server.Arch}}"` -t juampe/filer
