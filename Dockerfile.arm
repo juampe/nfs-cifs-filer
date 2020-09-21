@@ -1,0 +1,11 @@
+FROM debian:stretch-slim
+ENV TZ=Europe/Madrid
+ENV ARCH=arm
+ADD https://github.com/just-containers/s6-overlay/releases/download/v2.1.0.0/s6-overlay-${ARCH}.tar.gz /tmp/s6-overlay.tar.gz
+
+COPY rootfs /
+
+RUN tar xfz /tmp/s6-overlay.tar.gz -C / && apt-dpkg-wrap apt-get update && apt-dpkg-wrap apt-get dist-upgrade -y && rm -f /tmp/*.tar.gz && apt-dpkg-wrap apt-get -y install nfs-kernel-server samba cifs-utils
+RUN mkdir /run/sendsigs.omit.d && mkdir /shared && useradd -u 1001 -U -d /shared -s /bin/false shared && usermod -G shared shared && usermod -G users shared
+
+ENTRYPOINT [ "/init" ]

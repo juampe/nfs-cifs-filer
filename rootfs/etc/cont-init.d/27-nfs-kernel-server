@@ -1,0 +1,2 @@
+#!/usr/bin/with-contenv sh
+/etc/init.d/nfs-kernel-server start
