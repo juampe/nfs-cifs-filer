@@ -1,0 +1,19 @@
+#!/bin/bash
+
+VERSION="v2.1.0.0"
+echo "ENV $TARGETARCH"
+case $TARGETARCH in
+	arm)
+		ARCH=arm
+	;;
+	arm64)
+		ARCH=aarch64
+	;;
+	amd64)
+		ARCH=amd64
+	;;
+esac
+URL="https://github.com/just-containers/s6-overlay/releases/download/$VERSION/s6-overlay-$ARCH.tar.gz"
+echo "URL $URL"
+
+curl -L -o /tmp/s6-overlay.tar.gz "$URL" && tar xfz /tmp/s6-overlay.tar.gz -C / && rm -f /tmp/*.tar.gz
