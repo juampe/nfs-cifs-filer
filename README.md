@@ -1,5 +1,5 @@
 # nfs-cifs-filer
-NFS service to serve docker volumes
+NFS service to serve docker volumes. Additionally serve CIFS/SMB share
 
 `docker run --init -d --restart=always --network=eraser --ip 192.168.0.128 --dns 192.168.123.123 --name="filer" --hostname "filer" -e "TZ=Europe/Madrid" --cap-add=SYS_ADMIN -v /opt/docker/filer/data/exports:/etc/exports -v /opt/docker/filer/data/samba:/etc/samba -v /shared:/shared juampe/filer`
 
