@@ -6,3 +6,5 @@ NFS service to serve docker volumes. Additionally serve CIFS/SMB share.
 Use the share as a volume in containers like owncloud.
 
 `docker volume create --driver local --opt type=nfs --opt o=addr=filer,nfsvers=3,rw,nolock,hard,intr,rsize=8192,wsize=8192,timeo=14 --opt device=:/shared/OwnCloud owncloud`
+
+Adde new buildx
