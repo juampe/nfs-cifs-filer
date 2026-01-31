@@ -1,19 +1,20 @@
 #!/bin/bash
-
-VERSION="v2.1.0.0"
+VERSION="v3.2.2.0"
 echo "ENV $TARGETARCH"
 case $TARGETARCH in
-	arm)
-		ARCH=arm
-	;;
-	arm64)
-		ARCH=aarch64
-	;;
-	amd64)
-		ARCH=amd64
-	;;
+arm)
+    ARCH=arm
+    ;;
+arm64)
+    ARCH=aarch64
+    ;;
+amd64)
+    ARCH=x86_64
+    ;;
 esac
-URL="https://github.com/just-containers/s6-overlay/releases/download/$VERSION/s6-overlay-$ARCH.tar.gz"
+URL1="https://github.com/just-containers/s6-overlay/releases/download/$VERSION/s6-overlay-noarch.tar.xz"
+URL2="https://github.com/just-containers/s6-overlay/releases/download/$VERSION/s6-overlay-$ARCH.tar.xz"
 echo "URL $URL"
-
-curl -L -o /tmp/s6-overlay.tar.gz "$URL" && tar xfz /tmp/s6-overlay.tar.gz -C / && rm -f /tmp/*.tar.gz
+rm -Rf /package
+curl -L -o /tmp/s6-overlayn.tar.xz "$URL1" && tar -Jxpf /tmp/s6-overlayn.tar.xz -C / && rm -f /tmp/*.tar.xz
+curl -L -o /tmp/s6-overlay.tar.xz "$URL2" && tar -Jxpf /tmp/s6-overlay.tar.xz -C / && rm -f /tmp/*.tar.xz

@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+foreground { echo "[s6-init] Iniciando WSDD..." }
+/etc/init.d/wsdd start

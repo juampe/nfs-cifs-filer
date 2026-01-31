@@ -1,0 +1,25 @@
+#!/command/with-contenv sh
+
+echo "[cont-init.d] NFS common deshabilitado temporalmente"
+exit 0
+
+# DESHABILITADO TEMPORALMENTE
+# echo "[cont-init.d] Iniciando NFS common..."
+# 
+# # Limpiar locks antiguos
+# rm -rf /var/lib/nfs/sm/* /var/lib/nfs/sm.bak/* 2>/dev/null
+# 
+# # Iniciar servicios NFS comunes
+# /etc/init.d/nfs-common start
+# 
+# # Verificar que rpcbind está corriendo
+# for i in 1 2 3 4 5; do
+#     if rpcinfo -p >/dev/null 2>&1; then
+#         echo "[cont-init.d] NFS common iniciado correctamente"
+#         exit 0
+#     fi
+#     echo "[cont-init.d] Esperando rpcbind... intento $i/5"
+#     sleep 2
+# done
+# 
+# echo "[cont-init.d] ADVERTENCIA: rpcbind puede no estar funcionando correctamente"

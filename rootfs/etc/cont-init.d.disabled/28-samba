@@ -1,0 +1,3 @@
+#!/command/with-contenv sh
+/etc/init.d/smbd start
+/etc/init.d/samba-ad-dc  start
