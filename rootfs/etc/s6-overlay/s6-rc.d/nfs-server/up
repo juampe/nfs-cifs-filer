@@ -1,0 +1,35 @@
+#!/command/execlineb -P
+foreground { echo "[s6-init] Iniciando NFS Server (NFSv3 y NFSv4)..." }
+foreground { /bin/sh -c "
+    # Montar nfsd si no está montado
+    if ! mountpoint -q /proc/fs/nfsd; then
+        mount -t nfsd nfsd /proc/fs/nfsd 2>/dev/null || echo 'WARN: No se pudo montar /proc/fs/nfsd'
+    fi
+    
+    # Verificar que existe /etc/exports
+    if [ ! -f /etc/exports ]; then
+        echo 'ERROR: /etc/exports no existe'
+        exit 1
+    fi
+    
+    # Habilitar NFSv3 y NFSv4 explícitamente
+    # Crear configuración si no existe
+    if [ ! -f /etc/default/nfs-kernel-server ]; then
+        echo 'RPCNFSDCOUNT=8' > /etc/default/nfs-kernel-server
+        echo 'RPCNFSDPRIORITY=0' >> /etc/default/nfs-kernel-server
+        echo 'RPCMOUNTDOPTS=\"--manage-gids\"' >> /etc/default/nfs-kernel-server
+        echo 'NEED_SVCGSSD=no' >> /etc/default/nfs-kernel-server
+        echo 'RPCSVCGSSDOPTS=\"\"' >> /etc/default/nfs-kernel-server
+    fi
+    
+    # Asegurar que /etc/exports.d existe
+    mkdir -p /etc/exports.d
+    
+    # Iniciar servicios NFS (soporta v3 y v4 por defecto en Debian)
+    /etc/init.d/nfs-kernel-server start
+    
+    # Verificar versiones soportadas
+    echo 'Versiones NFS soportadas:'
+    cat /proc/fs/nfsd/versions 2>/dev/null || echo 'No se pudo verificar versiones'
+" }
+

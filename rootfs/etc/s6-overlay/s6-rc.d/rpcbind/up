@@ -1,0 +1,3 @@
+#!/command/execlineb -P
+foreground { echo "[s6-init] Iniciando RPC Bind..." }
+if { /etc/init.d/rpcbind start }

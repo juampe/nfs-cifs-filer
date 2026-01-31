@@ -15,10 +15,9 @@ RUN mkdir /run/sendsigs.omit.d \
     && useradd -u 1000 -U -d /shared -s /bin/false shared \
     && usermod -G shared shared \
     && usermod -G users shared \
-    && rm -f /etc/exports \
     && chmod +x /usr/bin/healthcheck
 
-# Healthcheck: verifica Samba, WSDD y MiniDLNA cada minuto
+# Healthcheck: verifica Samba, WSDD, MiniDLNA y NFS cada minuto
 # - Espera 90s después del inicio antes de la primera comprobación
 # - Timeout de 15s por comprobación
 # - 3 intentos fallidos antes de marcar como unhealthy

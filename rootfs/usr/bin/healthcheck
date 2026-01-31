@@ -1,5 +1,5 @@
 #!/bin/sh
-# Healthcheck: Samba (smbd), WSDD, MiniDLNA
+# Healthcheck: Samba (smbd), WSDD, MiniDLNA, NFS
 
 ERRORS=0
 
@@ -9,6 +9,15 @@ if ! pgrep -x smbd > /dev/null 2>&1; then
     ERRORS=$((ERRORS + 1))
 elif ! netstat -tlnp 2>/dev/null | grep -q ':445.*smbd' && ! ss -tlnp 2>/dev/null | grep -q ':445.*smbd'; then
     echo "ERROR: Samba no escucha en puerto 445"
+    ERRORS=$((ERRORS + 1))
+fi
+
+# Verificar NFS (crítico)
+if ! pgrep -x rpc.mountd > /dev/null 2>&1; then
+    echo "ERROR: NFS mountd no está corriendo"
+    ERRORS=$((ERRORS + 1))
+elif ! pgrep -x nfsd > /dev/null 2>&1 && ! pgrep rpc.nfsd > /dev/null 2>&1; then
+    echo "ERROR: NFS server no está corriendo"
     ERRORS=$((ERRORS + 1))
 fi
 
@@ -22,5 +31,5 @@ if ! pgrep -x minidlnad > /dev/null 2>&1; then
     echo "WARN: MiniDLNA no está corriendo"
 fi
 
-# Saludable si Samba funciona
+# Saludable si Samba y NFS funcionan
 [ $ERRORS -eq 0 ] && exit 0 || exit 1
