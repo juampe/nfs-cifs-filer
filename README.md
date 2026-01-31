@@ -2,7 +2,7 @@
 
 [![Docker Image](https://img.shields.io/docker/pulls/juampe/nfs-cifs-filer.svg)](https://hub.docker.com/r/juampe/nfs-cifs-filer)
 [![Docker Image Size](https://img.shields.io/docker/image-size/juampe/nfs-cifs-filer/latest.svg)](https://hub.docker.com/r/juampe/nfs-cifs-filer)
-[![GitHub](https://img.shields.io/github/license/juampe/nfs-cifs-filer.svg)](https://github.com/juampe/nfs-cifs-filer/blob/master/LICENSE)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
 A versatile multi-protocol file sharing container supporting NFS, CIFS/SMB, DLNA, and Windows Network Discovery.
 
@@ -344,7 +344,13 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+
+**Key points:**
+- ✅ Free to use, modify, and distribute
+- ✅ Source code must be made available
+- ✅ Derivative works must also be GPL v3
+- ✅ No warranty provided
 
 ## Links
 
