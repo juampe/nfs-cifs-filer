@@ -16,8 +16,8 @@ fi
 if ! pgrep -x rpc.mountd > /dev/null 2>&1; then
     echo "ERROR: NFS mountd is not running"
     ERRORS=$((ERRORS + 1))
-elif ! pgrep -x nfsd > /dev/null 2>&1 && ! pgrep rpc.nfsd > /dev/null 2>&1; then
-    echo "ERROR: NFS server is not running"
+elif ! test -f /proc/fs/nfsd/threads || [ "$(cat /proc/fs/nfsd/threads 2>/dev/null)" = "0" ]; then
+    echo "ERROR: NFS server threads not active"
     ERRORS=$((ERRORS + 1))
 fi
 
