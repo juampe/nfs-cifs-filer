@@ -1,3 +1,3 @@
 #!/command/execlineb -P
-foreground { echo "[s6-init] Iniciando MiniDLNA..." }
+foreground { echo "[s6-init] Starting MiniDLNA..." }
 /etc/init.d/minidlna start

@@ -3,33 +3,33 @@
 
 ERRORS=0
 
-# Verificar Samba (crítico)
+# Check Samba (critical)
 if ! pgrep -x smbd > /dev/null 2>&1; then
-    echo "ERROR: Samba no está corriendo"
+    echo "ERROR: Samba is not running"
     ERRORS=$((ERRORS + 1))
 elif ! netstat -tlnp 2>/dev/null | grep -q ':445.*smbd' && ! ss -tlnp 2>/dev/null | grep -q ':445.*smbd'; then
-    echo "ERROR: Samba no escucha en puerto 445"
+    echo "ERROR: Samba not listening on port 445"
     ERRORS=$((ERRORS + 1))
 fi
 
-# Verificar NFS (crítico)
+# Check NFS (critical)
 if ! pgrep -x rpc.mountd > /dev/null 2>&1; then
-    echo "ERROR: NFS mountd no está corriendo"
+    echo "ERROR: NFS mountd is not running"
     ERRORS=$((ERRORS + 1))
 elif ! pgrep -x nfsd > /dev/null 2>&1 && ! pgrep rpc.nfsd > /dev/null 2>&1; then
-    echo "ERROR: NFS server no está corriendo"
+    echo "ERROR: NFS server is not running"
     ERRORS=$((ERRORS + 1))
 fi
 
-# Verificar WSDD
+# Check WSDD
 if ! pgrep -f wsdd > /dev/null 2>&1; then
-    echo "WARN: WSDD no está corriendo"
+    echo "WARN: WSDD is not running"
 fi
 
-# Verificar MiniDLNA
+# Check MiniDLNA
 if ! pgrep -x minidlnad > /dev/null 2>&1; then
-    echo "WARN: MiniDLNA no está corriendo"
+    echo "WARN: MiniDLNA is not running"
 fi
 
-# Saludable si Samba y NFS funcionan
+# Healthy if Samba and NFS are working
 [ $ERRORS -eq 0 ] && exit 0 || exit 1
